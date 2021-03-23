@@ -1,0 +1,166 @@
+﻿<Window x:Class="QYDHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QYDHelper"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="891"
+        Closing="Window_Closing"
+       Loaded="Window_Loaded"
+        ContentRendered="Window_ContentRendered"
+        >
+    <Window.Resources>
+        <Style x:Key="CheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="VerticalAlignment">
+                <Setter.Value>Center</Setter.Value>
+            </Setter>
+            <Setter Property="Margin">
+                <Setter.Value>10,0,0,0</Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="LightBlue"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="Yellow"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="LightCyan"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="DarkBlue"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="KKButton" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ActiveBorderColor}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+
+        <Grid DockPanel.Dock="Top" Height="30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="66"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="3,0">
+                <Button Style="{DynamicResource KKButton}" Width="30" Name="CTRL_GoBack" Click="OnClick_GoBack">
+                    <![CDATA[<]]>
+                </Button>
+                <Button Style="{DynamicResource KKButton}" Width="30" Name="CTRL_GoForward" Click="OnClick_GoForward">
+                    <![CDATA[>]]>
+                </Button>
+            </StackPanel>
+            <TextBox Name="CTRL_URL" Grid.Column="1" Margin="5,2"></TextBox>
+            <Button Name="CTRL_Open" Width="80" Click="OnClick_OpenURL" Grid.Column="2" Margin="5,0" Style="{DynamicResource KKButton}">打开</Button>
+
+            <!--<StackPanel Name="BrowserPanel" Grid.Row="1">
+            -->
+            <!--<wpf:ChromiumWebBrowser Width="600" Height="600" Name="Browser" Address=""></wpf:ChromiumWebBrowser>-->
+            <!--
+        </StackPanel>-->
+        </Grid>
+        <StackPanel DockPanel.Dock="Bottom" Height="20" Orientation="Horizontal">
+            <TextBlock Name="CTRL_PageLoadState" Width="Auto"></TextBlock>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Height="30" Orientation="Horizontal">
+            <Button Name="CTRL_ShowDebug" Click="OnClick_OpenDebug" Style="{DynamicResource KKButton}">调试窗口</Button>
+            <Button Name="CTRL_ClearConsole" Click="OnClick_ClearConsole" Style="{DynamicResource KKButton}">清空消息</Button>
+            <Button Click="OnClick_RealoadPage" Style="{DynamicResource KKButton}">刷新</Button>
+            <Button Click="Onclick_Order" Style="{DynamicResource KKButton}">预订下单</Button>
+            <Button Click="Onclick_CommitOrder" Style="{DynamicResource KKButton}">提交订单</Button>
+            <Button Click="Onclick_MyAccount" Style="{DynamicResource KKButton}">我的账号</Button>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Height="30" Orientation="Horizontal">
+            <DatePicker Name="CTRL_OrderDate"></DatePicker>
+            <Button Click="Onclick_OpenOrderPage" Style="{DynamicResource KKButton}">打开预订页面</Button>
+            <Button Name="CTRL_StartRefreshOrder" Click="Onclick_StartOrder" Style="{DynamicResource KKButton}">开始刷单</Button>
+            <CheckBox Name="CTRL_ChkLoadScript" IsChecked="True" VerticalContentAlignment="Center">页面加载时加载脚本</CheckBox>
+            <Label Name="CTRL_TimerState"></Label>
+        </StackPanel>
+        <Border DockPanel.Dock="Bottom" Height="30" Margin="0,5,0,5" BorderThickness="1" BorderBrush="DarkGreen">
+            <StackPanel Orientation="Horizontal"  >
+                <Label>账号选择：</Label>
+                <ComboBox Name="CTRL_AccountList" IsEditable="False" Width="Auto" MinWidth="100" SelectionChanged="CTRL_AccountList_SelectionChanged"></ComboBox>
+                <Label>账号：</Label>
+                <TextBox Name="CTRL_Account" Width="100"></TextBox>
+                <Label>密码：</Label>
+                <TextBox Name="CTRL_Password" Width="100"></TextBox>
+                <Button Click="Onclick_OpenLogin" Style="{DynamicResource KKButton}">打开并登录</Button>
+            </StackPanel>
+        </Border>
+        <Border DockPanel.Dock="Bottom" Height="30" Margin="0,5,0,5" BorderThickness="1" BorderBrush="DarkGreen">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="脚本名："></Label>
+                <ComboBox Name="CTRL_ScriptFileList" IsEditable="False" Width="Auto" MinWidth="100" SelectionChanged="CTRL_ScriptFileList_SelectionChanged"></ComboBox>
+                <TextBox Name="CTRL_ScriptName" Width="100"></TextBox>
+                <Button Click="OnClick_GenerateOrderScript">生成刷单脚本</Button>
+            </StackPanel>
+        </Border>
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Height="30">
+                    <CheckBox Name="CTRL_IsLimitMessageLength" VerticalAlignment="Center" IsChecked="True">超出长度清理</CheckBox>
+                </StackPanel>
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <ScrollViewer Name="CTRL_ScrollConsole"  Width="400" Height="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <ScrollViewer.Content>
+                            <TextBlock Name="CTRL_Console">
+
+                            </TextBlock>
+                        </ScrollViewer.Content>
+                    </ScrollViewer>
+                </Border>
+            </DockPanel>
+        </StackPanel>
+
+
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True" Name="CTRL_BrowserPanel">
+
+        </DockPanel>
+
+    </DockPanel>
+
+
+</Window>

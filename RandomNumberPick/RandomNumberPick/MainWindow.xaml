@@ -1,0 +1,135 @@
+﻿<Window x:Class="RandomNumberPick.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RandomNumberPick"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        WindowState="Maximized"
+        PreviewKeyDown="Window_PreviewKeyDown">
+
+    <Window.Resources>
+        <Style x:Key="DefaultButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <Border Name="border" BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="60,10,60,10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkGreen"></Setter>
+                                <Setter Property="Foreground" Value="Yellow"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="100,5"></Setter>
+            <Setter Property="Background" Value="Green"></Setter>
+            <Setter Property="Foreground" Value="Yellow"></Setter>
+        </Style>
+        <Style x:Key="StopButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="60,10,60,10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkRed"></Setter>
+                                <Setter Property="Foreground" Value="Yellow"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Margin" Value="100,5"></Setter>
+            <Setter Property="Background" Value="Red"></Setter>
+            <Setter Property="Foreground" Value="Yellow"></Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="30">
+            </RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.Background>
+            <ImageBrush x:Name="CTRL_IMG_Background">
+                <ImageBrush.Opacity>90</ImageBrush.Opacity>
+            </ImageBrush>
+            
+        </Grid.Background>
+        
+        <Viewbox  Grid.Row="0">
+            <TextBlock Name="CTRL_TXT_Number" Foreground="DarkRed">1</TextBlock>
+        </Viewbox>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Style="{StaticResource DefaultButton}" Click="OnClick_StartRandom" Name="CTRL_BTN_START" Width="400" Cursor="Hand" IsDefault="False" Margin="0,0,0,20">
+                <Viewbox>
+                    <TextBlock Name="CTRL_TXT_ButtonText">开始</TextBlock>
+                </Viewbox>
+            </Button>
+
+        </Grid>
+
+        <Grid  Grid.Row="2" Background="LightGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" VerticalAlignment="Center" Width="200" Orientation="Horizontal">
+                <Button Margin="0,0,5,0" Click="OnClick_ChangeTextColor" Name="CTRL_BTN_SetNumberColor">数字颜色</Button>
+                <Button Click="Button_Click">复位</Button>
+               
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock Name="CTRL_TXT_Status" TextAlignment="Center">就绪</TextBlock>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Grid Name="CTRL_GRID_RangeSetting">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">起始数字：</Label>
+                    <TextBox Name="CTRL_TXT_StartNumber" Grid.Column="1" Width="50" IsTabStop="False">1</TextBox>
+                    <Label Grid.Column="2">截止数字：</Label>
+                    <TextBox Name="CTRL_TXT_EndNumber" Grid.Column="3" Width="50" IsTabStop="False">150</TextBox>
+                    <Button Grid.Column="5" Width="70" Click="OnClick_SettingRange">设定</Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

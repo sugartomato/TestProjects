@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KK.CompressTools", "KK.CompressTools\KK.CompressTools.csproj", "{C110F8E7-0996-419F-B55C-CBA29A86D5C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C110F8E7-0996-419F-B55C-CBA29A86D5C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C110F8E7-0996-419F-B55C-CBA29A86D5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C110F8E7-0996-419F-B55C-CBA29A86D5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C110F8E7-0996-419F-B55C-CBA29A86D5C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9589BB4C-A7CA-439A-9946-7570A5529466}
+	EndGlobalSection
+EndGlobal

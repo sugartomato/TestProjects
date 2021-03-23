@@ -14,12 +14,15 @@ namespace ThreadTest_WinForm_NetCore
     {
 
         private TextBox mTextConsole = null;
+        Int32 repetitions = 20000;
+        String str = "";
+
         public FrmMain()
         {
             InitializeComponent();
 
             this.Height = 500;
-            this.Width = 600;
+            this.Width = 800;
 
             Panel panelMain = new Panel()
             {
@@ -74,6 +77,64 @@ namespace ThreadTest_WinForm_NetCore
             btnTest3.Click += BtnTest3_Click;
             panelToolBar.Controls.Add(btnTest3);
 
+            Button btnTest4 = new Button()
+            {
+                Text = "Threading1",
+            };
+            btnTest4.Click += BtnTest4_Click; ;
+            panelToolBar.Controls.Add(btnTest4);
+
+            Button btnTest5 = new Button()
+            {
+                Text = "Task1",
+            };
+            btnTest5.Click += BtnTest5_Click; ; ;
+            panelToolBar.Controls.Add(btnTest5);
+
+
+
+        }
+
+        private void BtnTest5_Click(object sender, EventArgs e)
+        {
+            Task t = Task.Run(delegate {
+                for (Int32 i = 0; i < repetitions; i++)
+                {
+                    str += "-";
+                }
+            });
+            for (Int32 i = 0; i < repetitions; i++)
+            {
+                str += "$";
+            }
+
+            t.Wait();
+            WriteConsole(str);
+
+
+        }
+
+        private void BtnTest4_Click(object sender, EventArgs e)
+        {
+            System.Threading.ThreadStart start =Do;
+            System.Threading.Thread thread = new System.Threading.Thread(start);
+            thread.Start();
+            for (Int32 i = 0; i < repetitions; i++)
+            {
+                //WriteConsole("+", false);
+                str += "$";
+            }
+            thread.Join();
+            WriteConsole(str);
+        }
+
+        private void Do()
+        {
+            for (Int32 i = 0; i < repetitions; i++)
+            {
+                //WriteConsole("-", false);
+                str += "-";
+            }
         }
 
         private void BtnTest3_Click(object sender, EventArgs e)
@@ -111,18 +172,22 @@ namespace ThreadTest_WinForm_NetCore
             }
         }
 
-        private void WriteConsole(String msg)
+        private void WriteConsole(String msg, Boolean newLine = true)
         {
+            if (newLine)
+            {
+                msg = msg + "\r\n";
+            }
             if (mTextConsole.InvokeRequired)
             {
                 mTextConsole.BeginInvoke(new Action(() =>
                 {
-                    mTextConsole.AppendText(msg + "\r\n");
+                    mTextConsole.AppendText(msg);
                 }));
             }
             else
             {
-                mTextConsole.AppendText(msg + "\r\n");
+                mTextConsole.AppendText(msg);
             }
         }
     }
